@@ -2,6 +2,12 @@
 
 A Flutter application that displays trending and now-playing movies using The Movie Database (TMDB) API. Features include movie search with auto-complete, bookmarking, offline support, and deep linking for sharing movies.
 
+## Download APK
+
+ **[Download app-release.apk](https://drive.google.com/drive/folders/10GloDrXbjuHeJb1q8LK3yq0LPbErLCa6?usp=sharing)**
+
+Download the latest APK from Google Drive to install and test the app on your Android device.
+
 ## Features
 
 ### Core Features
@@ -16,7 +22,7 @@ A Flutter application that displays trending and now-playing movies using The Mo
 ### Technical Stack
 
 - **Framework**: Flutter
-- **Architecture**: MVVM (Model-View-ViewModel)
+- **Architecture**: Clean Architecture
 - **State Management**: Provider
 - **Networking**: Retrofit + Dio
 - **Local Database**: SQLite (sqflite)
