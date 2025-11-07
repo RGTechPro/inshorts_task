@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'core/network/retry_interceptor.dart';
 import 'data/datasources/local/movie_local_data_source.dart';
 import 'data/datasources/remote/movie_remote_data_source.dart';
 import 'data/local/database_helper.dart';
@@ -84,33 +85,10 @@ Future<void> init() async {
     ));
 
     // Retry interceptor for handling connection errors
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onError: (error, handler) async {
-          if (error.type == DioExceptionType.connectionError ||
-              error.type == DioExceptionType.unknown) {
-            final requestOptions = error.requestOptions;
-
-            final retryCount = requestOptions.extra['retryCount'] ?? 0;
-
-            if (retryCount < 2) {
-              requestOptions.extra['retryCount'] = retryCount + 1;
-
-              await Future.delayed(
-                  Duration(milliseconds: (500 * (retryCount + 1)).toInt()));
-
-              try {
-                final response = await dio.fetch(requestOptions);
-                return handler.resolve(response);
-              } catch (e) {
-                return handler.next(error);
-              }
-            }
-          }
-          return handler.next(error);
-        },
-      ),
-    );
+    dio.interceptors.add(RetryInterceptor(
+      maxRetries: 2,
+      initialDelay: const Duration(milliseconds: 500),
+    ));
 
     // Interceptor for logging
     dio.interceptors.add(LogInterceptor(

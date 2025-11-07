@@ -23,7 +23,7 @@ Download the latest APK from Google Drive to install and test the app on your An
 
 - **Framework**: Flutter
 - **Architecture**: Clean Architecture
-- **State Management**: Provider
+- **State Management**: BloC
 - **Networking**: Retrofit + Dio
 - **Local Database**: SQLite (sqflite)
 - **Pattern**: Repository Pattern
@@ -36,7 +36,7 @@ Download the latest APK from Google Drive to install and test the app on your An
 
 ### 1. Prerequisites
 
-- Flutter SDK (>=3.5.1)
+- Flutter SDK
 - Dart SDK
 - Android Studio / Xcode (for mobile development)
 - TMDB API Key
