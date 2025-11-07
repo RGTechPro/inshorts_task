@@ -142,9 +142,10 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
           e.type == DioExceptionType.sendTimeout) {
         throw NetworkException(
             'Connection timeout. Please check your internet connection.');
-      } else if (e.type == DioExceptionType.connectionError) {
+      } else if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.unknown) {
         throw NetworkException(
-            'Connection error. Please check your internet connection.');
+            'Connection error. Please check your internet connection and try again.');
       } else if (e.response?.statusCode == 401) {
         throw ServerException('Invalid API key');
       } else if (e.response?.statusCode == 404) {

@@ -21,6 +21,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     LoadMovies event,
     Emitter<HomeState> emit,
   ) async {
+    if (state is HomeLoaded) {
+      return;
+    }
+
     emit(HomeLoading());
     await _fetchMovies(emit);
   }

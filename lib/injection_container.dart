@@ -78,10 +78,39 @@ Future<void> init() async {
   // External
   sl.registerLazySingleton(() {
     final dio = Dio(BaseOptions(
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-      sendTimeout: const Duration(seconds: 30),
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      sendTimeout: const Duration(seconds: 10),
     ));
+
+    // Retry interceptor for handling connection errors
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) async {
+          if (error.type == DioExceptionType.connectionError ||
+              error.type == DioExceptionType.unknown) {
+            final requestOptions = error.requestOptions;
+
+            final retryCount = requestOptions.extra['retryCount'] ?? 0;
+
+            if (retryCount < 2) {
+              requestOptions.extra['retryCount'] = retryCount + 1;
+
+              await Future.delayed(
+                  Duration(milliseconds: (500 * (retryCount + 1)).toInt()));
+
+              try {
+                final response = await dio.fetch(requestOptions);
+                return handler.resolve(response);
+              } catch (e) {
+                return handler.next(error);
+              }
+            }
+          }
+          return handler.next(error);
+        },
+      ),
+    );
 
     // Interceptor for logging
     dio.interceptors.add(LogInterceptor(
