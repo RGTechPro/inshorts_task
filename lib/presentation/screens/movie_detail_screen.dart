@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/extensions.dart';
 import '../bloc/movie_detail/movie_detail.dart';
 import '../bloc/bookmark/bookmark.dart';
 import '../../core/constants/api_constants.dart';
-import '../../core/constants/app_constants.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final int movieId;
@@ -130,7 +129,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     IconButton(
                       icon: const Icon(Icons.share),
                       onPressed: () {
-                        _shareMovie(movie.id, movie.title);
+                        context
+                            .read<MovieDetailBloc>()
+                            .add(ShareMovie(movie.id, movie.title));
                       },
                     ),
                   ],
@@ -204,12 +205,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         _buildInfoRow(
                             'Budget',
                             movie.budget > 0
-                                ? '\$${_formatNumber(movie.budget)}'
+                                ? '\$${movie.budget.toCompactFormat()}'
                                 : 'N/A'),
                         _buildInfoRow(
                             'Revenue',
                             movie.revenue > 0
-                                ? '\$${_formatNumber(movie.revenue)}'
+                                ? '\$${movie.revenue.toCompactFormat()}'
                                 : 'N/A'),
                         const SizedBox(height: 24),
                         if (movie.productionCompanies.isNotEmpty) ...[
@@ -290,26 +291,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  String _formatNumber(int number) {
-    if (number >= 1000000000) {
-      return '${(number / 1000000000).toStringAsFixed(1)}B';
-    } else if (number >= 1000000) {
-      return '${(number / 1000000).toStringAsFixed(1)}M';
-    } else if (number >= 1000) {
-      return '${(number / 1000).toStringAsFixed(1)}K';
-    }
-    return number.toString();
-  }
-
-  void _shareMovie(int movieId, String title) {
-    final deepLink =
-        '${AppConstants.deepLinkScheme}://${AppConstants.deepLinkHost}/$movieId';
-    Share.share(
-      'Check out this movie: $title\n$deepLink',
-      subject: 'Movie Recommendation',
     );
   }
 }

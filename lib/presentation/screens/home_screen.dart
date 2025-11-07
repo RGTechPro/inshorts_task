@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                   const Icon(
                       Icons.error_outline,
                       size: 64,
                       color: AppTheme.errorColor,
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+  
   Widget _buildSection(BuildContext context, String title, List movies) {
     final theme = Theme.of(context);
 

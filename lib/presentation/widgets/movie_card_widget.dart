@@ -55,7 +55,7 @@ class MovieCardWidget extends StatelessWidget {
                       height: 200,
                       width: 140,
                       color: AppTheme.shimmerBaseColor,
-                      child: Icon(
+                      child: const Icon(
                         Icons.movie,
                         size: 50,
                         color: AppTheme.secondaryIconColor,
