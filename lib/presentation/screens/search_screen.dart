@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: TextField(
           controller: _searchController,
           autofocus: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Search movies...',
             border: InputBorder.none,
             hintStyle: TextStyle(color: AppTheme.secondaryTextColor),
@@ -59,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                 const Icon(
                     Icons.search,
                     size: 80,
                     color: AppTheme.secondaryIconColor,
@@ -89,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.error_outline,
                     size: 64,
                     color: AppTheme.errorColor,
@@ -110,7 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.movie_filter,
                     size: 80,
                     color: AppTheme.secondaryIconColor,

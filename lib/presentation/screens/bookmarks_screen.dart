@@ -111,7 +111,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.error_outline,
                     size: 64,
                     color: AppTheme.errorColor,

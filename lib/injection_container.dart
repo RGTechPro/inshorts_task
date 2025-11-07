@@ -83,7 +83,7 @@ Future<void> init() async {
       sendTimeout: const Duration(seconds: 30),
     ));
 
-    // Add interceptor for logging (optional, can help with debugging)
+    // Interceptor for logging
     dio.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
